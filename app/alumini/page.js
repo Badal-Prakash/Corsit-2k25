@@ -450,6 +450,46 @@ const people = [
     role: "Alumini",
   },
 ];
+function AlumniPerson({ person }) {
+  const { ref, inView } = useInView({
+    triggerOnce: false,
+    threshold: 0.2,
+  });
+
+  return (
+    <li ref={ref} className="flex items-center gap-x-6">
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{
+          opacity: inView ? 1 : 0,
+          y: inView ? 0 : 50,
+        }}
+        transition={{ duration: 0.8 }}
+        className="flex items-center gap-x-4"
+      >
+        <Image
+          src={person.ima}
+          alt={`${person.name}'s Profile Picture`}
+          width={64}
+          height={64}
+          className="rounded-full"
+        />
+        <div>
+          <h3 className="text-sm font-semibold leading-6">{person.name}</h3>
+          <p className="text-sm leading-6 text-gray-300">{person.role}</p>
+          <Link
+            href={person.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-1 inline-block text-blue-400 hover:text-blue-600"
+          >
+            <FaLinkedinIn className="inline-block mr-1" />
+          </Link>
+        </div>
+      </motion.div>
+    </li>
+  );
+}
 
 export default function Alumni() {
   return (
@@ -460,66 +500,16 @@ export default function Alumni() {
             Meet our Alumni
           </h2>
           <p className="mt-6 text-lg leading-8 text-white">
-            "Continuing the Legacy: Corsit Alumni Making their Mark!"
+            <em>Continuing the Legacy: Corsit Alumni Making their Mark!</em>
           </p>
         </div>
         <ul
           role="list"
           className="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2"
         >
-          {people.map((person, i) => {
-            const { ref, inView } = useInView({
-              triggerOnce: false, // Trigger every time the element comes into view
-              threshold: 0.2, // Trigger when 20% of the element is visible
-            });
-
-            return (
-              <li
-                key={i}
-                ref={ref} // Attach the ref to each list item
-                className="flex items-center gap-x-6"
-              >
-                <motion.div
-                  initial={{ opacity: 0, y: 50 }} // Start from below (y: 50)
-                  animate={{
-                    opacity: inView ? 1 : 0, // Fade in when in view
-                    y: inView ? 0 : 50, // Move to the original position when in view
-                  }}
-                  transition={{
-                    duration: 0.5, // Faster transition duration
-                    type: "spring", // Smooth spring transition
-                    stiffness: 150, // Increase stiffness for a quicker movement
-                    damping: 25, // Adjust damping for smooth effect
-                  }}
-                >
-                  <Image
-                    className="h-16 w-16 rounded-full"
-                    src={person.ima}
-                    alt={person.name}
-                    width={64}
-                    height={64}
-                  />
-                  <div>
-                    <h3 className="text-base font-semibold leading-7 tracking-tight text-white">
-                      {person.name}
-                    </h3>
-                    <p className="text-sm text-white">{person.role}</p>
-                    <div className="flex items-center gap-2 mt-1">
-                      {person.linkedin && (
-                        <Link
-                          href={person.linkedin}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <FaLinkedinIn className="text-white" />
-                        </Link>
-                      )}
-                    </div>
-                  </div>
-                </motion.div>
-              </li>
-            );
-          })}
+          {people.map((person, i) => (
+            <AlumniPerson key={i} person={person} />
+          ))}
         </ul>
       </div>
     </div>
