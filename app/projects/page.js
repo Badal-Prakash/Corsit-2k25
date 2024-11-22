@@ -11,11 +11,10 @@ import augmented from "/public/image/img/bots/augmented.jpg";
 import soccer from "/public/image/img/bots/soccer.jpeg";
 import RFID from "/public/image/img/bots/RFID.png";
 
-// ProjectCard component for handling each project display
 const ProjectCard = ({ project, index }) => {
   const { ref, inView } = useInView({
     triggerOnce: true,
-    threshold: 0.2, // Trigger when 20% of the item is in the viewport
+    threshold: 0.2,
   });
 
   return (

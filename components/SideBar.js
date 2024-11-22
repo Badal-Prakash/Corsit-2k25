@@ -5,9 +5,6 @@ import { useContext, useState } from "react";
 
 export default function Sidebar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [selectedRole, setSelectedRole] = useState("");
-  const [selectedYear, setSelectedYear] = useState("");
-
   const { filterPeople } = useContext(TeamContext);
 
   const handleRoleChange = (role) => {
@@ -21,24 +18,19 @@ export default function Sidebar() {
   return (
     <>
       <button
-        className="lg:hidden fixed bottom-6 right-6 text-white bg-gray-800 p-3 rounded-full shadow-lg"
+        className="lg:hidden fixed bottom-6 right-6 text-white bg-gray-900 p-3 rounded-full shadow-lg z-50"
         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
       >
         ☰
       </button>
-
       <div
         className={`${
-          isSidebarOpen ? "block" : "hidden"
-        } lg:block w-72 bg-gray-800 text-gray-100 fixed top-12 left-0 h-full p-6 shadow-lg lg:w-64 xl:w-72 sm:w-56 sm:hidden md:block transition-all duration-300 ease-in-out z-50 ${
-          isSidebarOpen ? "absolute" : "hidden"
-        }`}
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+        } lg:translate-x-0 lg:block fixed top-16 left-0 h-full w-72 bg-gray-900 text-gray-100 shadow-lg p-6 z-40 transform transition-transform duration-300 ease-in-out`}
       >
         <h3 className="text-2xl font-bold mb-6 border-b border-gray-700 pb-2">
           Filter by Year and Leads
         </h3>
-
-        {/* Filter by Lead */}
         <div className="mb-8">
           <h4 className="text-lg font-semibold mb-3">Lead</h4>
           <ul className="space-y-2">
@@ -60,8 +52,6 @@ export default function Sidebar() {
             </li>
           </ul>
         </div>
-
-        {/* Filter by Year */}
         <div>
           <h4 className="text-lg font-semibold mb-3">Year</h4>
           <ul className="space-y-2">

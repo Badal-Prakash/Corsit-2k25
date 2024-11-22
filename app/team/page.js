@@ -63,7 +63,6 @@ export default function Team() {
                     className="mt-4 flex items-center justify-center bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-blue-700 transition"
                   >
                     <FaLinkedinIn className="text-white mr-2" />
-                    LinkedIn
                   </Link>
                 </motion.li>
               );
